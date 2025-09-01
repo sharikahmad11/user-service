@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<?> handleUserNotFoundException(Exception ex){
-        Map<String,String> errorMap = new HashMap<>();
-        errorMap.put("Timestamp", String.valueOf(LocalDateTime.now()));
-        errorMap.put("message",ex.getMessage());
+    public ResponseEntity<?> handleUserNotFoundException(Exception ex) {
+        Map<String, String> errorMap = new HashMap<>();
         errorMap.put("details", Arrays.stream(ex.getStackTrace()).map(stack -> stack.toString()).collect(Collectors.joining("/n")));
+        errorMap.put("Timestamp", String.valueOf(LocalDateTime.now()));
+        errorMap.put("message", ex.getMessage());
         return new ResponseEntity<>(errorMap, HttpStatus.NOT_FOUND);
     }
 }

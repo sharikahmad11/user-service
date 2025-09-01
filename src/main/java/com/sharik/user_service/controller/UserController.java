@@ -52,4 +52,9 @@ public class UserController {
     public String delete(@PathVariable Long id) {
         return userService.delete(id);
     }
+
+    @PostMapping("/saveAll")
+    public String saveAll(@RequestBody List<User> userList){
+        return userService.saveUsers(userList);
+    }
 }

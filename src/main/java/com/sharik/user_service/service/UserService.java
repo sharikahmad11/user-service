@@ -7,8 +7,9 @@ import com.sharik.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -26,7 +27,7 @@ public class UserService {
     }
 
     public User get(Long id) throws Exception {
-        return userRepository.findById(id).orElseThrow(Exception::new);
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User Not Found!!!"));
     }
 
     public User save(User user) {
@@ -76,4 +77,13 @@ public class UserService {
         return "User Not Found!!!";
     }
 
+    public String saveUsers(List<User> userList) {
+        Instant start = Instant.now();
+        System.out.printf("User Data addition to DB started : " + start);
+        userRepository.saveAll(userList);
+        Instant end = Instant.now();
+        System.out.printf("User Data addition to DB completed : " + end);
+        System.out.printf("Total time taken: " + Duration.between(end,start));
+        return "Users data added to Database";
+    }
 }

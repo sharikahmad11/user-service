@@ -52,7 +52,6 @@ public class UserService {
     public User updateById(Long id, UserDto userDto) {
         User existingUser = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User Not Found!!!"));
         User newUSer = new User();
-
         if(null!=userDto.getFirstName())
             existingUser.setFirstName(existingUser.getFirstName());
         if(null!=userDto.getLastName())

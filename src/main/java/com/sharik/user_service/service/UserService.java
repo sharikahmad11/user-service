@@ -65,7 +65,6 @@ public class UserService {
             existingUser.setRole(userDto.getRole());
 
         return userRepository.save(existingUser);
-
     }
 
     public String delete(Long id) {
